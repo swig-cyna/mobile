@@ -5,9 +5,8 @@ import {
   ThemeProvider,
 } from "@react-navigation/native"
 import { PortalHost } from "@rn-primitives/portal"
-import { Tabs } from "expo-router"
+import { Stack } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { Box, Home, ShoppingCart } from "lucide-react-native"
 import * as React from "react"
 import { Platform } from "react-native"
 import "~/global.css"
@@ -57,47 +56,9 @@ export default function RootLayout() {
     <TanstackProvider>
       <ThemeProvider value={DARK_THEME}>
         <StatusBar style="light" />
-        <Tabs
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              const iconProps = { color, size }
-
-              if (route.name === "index") {
-                return <Home {...iconProps} />
-              } else if (route.name === "products") {
-                return <Box {...iconProps} />
-              } else if (route.name === "cart") {
-                return <ShoppingCart {...iconProps} />
-              }
-
-              return null
-            },
-            tabBarActiveTintColor: "#ffffff",
-            tabBarInactiveTintColor: "#a1a1aa",
-            tabBarStyle: {
-              backgroundColor: "#18181b",
-            },
-          })}
-        >
-          <Tabs.Screen
-            name="index"
-            options={{
-              title: "Home",
-            }}
-          />
-          <Tabs.Screen
-            name="products"
-            options={{
-              title: "Products",
-            }}
-          />
-          <Tabs.Screen
-            name="cart"
-            options={{
-              title: "Cart",
-            }}
-          />
-        </Tabs>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
         <PortalHost />
       </ThemeProvider>
     </TanstackProvider>

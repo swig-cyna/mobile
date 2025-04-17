@@ -1,0 +1,56 @@
+import { Tabs } from "expo-router"
+import { Box, Home, ShoppingCart } from "lucide-react-native"
+import * as React from "react"
+import { Platform } from "react-native"
+import "~/global.css"
+
+export default function RootLayout() {
+  return (
+    <Tabs
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          const iconProps = { color, size }
+
+          if (route.name === "index") {
+            return <Home {...iconProps} />
+          } else if (route.name === "products") {
+            return <Box {...iconProps} />
+          } else if (route.name === "cart") {
+            return <ShoppingCart {...iconProps} />
+          }
+
+          return null
+        },
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "#a1a1aa",
+        tabBarStyle: {
+          backgroundColor: "#18181b",
+        },
+      })}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+        }}
+      />
+      <Tabs.Screen
+        name="products"
+        options={{
+          title: "Products",
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: "Cart",
+        }}
+      />
+    </Tabs>
+  )
+}
+
+const useIsomorphicLayoutEffect =
+  Platform.OS === "web" && typeof window === "undefined"
+    ? React.useEffect
+    : React.useLayoutEffect

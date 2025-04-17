@@ -1,3 +1,4 @@
+import { Stack } from "expo-router"
 import { Package } from "lucide-react-native"
 import * as React from "react"
 import { SafeAreaView, ScrollView, View } from "react-native"
@@ -12,6 +13,7 @@ export default function Screen() {
 
   return (
     <SafeAreaView className="flex-1 px-3">
+      <Stack.Screen options={{ headerShown: false }} />
       <ScrollView className="w-full gap-3 flex flex-col">
         <View className="px-3 flex flex-col gap-3">
           <Text className="text-3xl font-semibold my-4">Newest Products</Text>

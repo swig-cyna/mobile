@@ -2,7 +2,6 @@ import { ChevronLeft, ChevronRight, Filter } from "lucide-react-native"
 import { useState } from "react"
 import {
   NativeSyntheticEvent,
-  SafeAreaView,
   ScrollView,
   TextInputChangeEventData,
   View,
@@ -36,18 +35,18 @@ export default function Screen() {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView className="px-3">
-        <View className="flex-row w-full gap-4 items-center justify-stretch">
-          <Input
-            onChange={handleSearch}
-            className="my-4 flex-1"
-            placeholder="Search"
-          />
-          <Button variant="ghost">
-            <Filter />
-          </Button>
-        </View>
+    <ScrollView className="px-3">
+      <View className="flex-row w-full gap-4 items-center justify-stretch">
+        <Input
+          onChange={handleSearch}
+          className="my-4 flex-1"
+          placeholder="Search"
+        />
+        <Button variant="ghost">
+          <Filter />
+        </Button>
+      </View>
+      <View className="w-full flex flex-col gap-3">
         {isLoading &&
           Array.from({ length: 3 }).map((_, index) => (
             <Skeleton key={index} className="h-72 w-full" />
@@ -65,23 +64,23 @@ export default function Screen() {
             </Text>
           </View>
         )}
+      </View>
 
-        <View className="flex-row items-center justify-center gap-2 my-4">
-          <Button
-            disabled={!products?.pagination.hasPreviousPage}
-            onPress={handleChangePage(currentPage - 1)}
-          >
-            <ChevronLeft />
-          </Button>
+      <View className="flex-row items-center justify-center gap-2 my-4">
+        <Button
+          disabled={!products?.pagination.hasPreviousPage}
+          onPress={handleChangePage(currentPage - 1)}
+        >
+          <ChevronLeft />
+        </Button>
 
-          <Button
-            disabled={!products?.pagination.hasNextPage}
-            onPress={handleChangePage(currentPage + 1)}
-          >
-            <ChevronRight />
-          </Button>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <Button
+          disabled={!products?.pagination.hasNextPage}
+          onPress={handleChangePage(currentPage + 1)}
+        >
+          <ChevronRight />
+        </Button>
+      </View>
+    </ScrollView>
   )
 }
