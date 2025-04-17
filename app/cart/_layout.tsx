@@ -1,5 +1,5 @@
 import { Stack } from "expo-router"
 
-export default function ProductsLayout() {
+export default function CartLayout() {
   return <Stack />
 }

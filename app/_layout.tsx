@@ -7,13 +7,14 @@ import {
 import { PortalHost } from "@rn-primitives/portal"
 import { Tabs } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import { Box, Home, Settings } from "lucide-react-native"
+import { Box, Home, ShoppingCart } from "lucide-react-native"
 import * as React from "react"
 import { Platform } from "react-native"
 import "~/global.css"
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar"
 import { NAV_THEME } from "~/lib/constants"
 import { useColorScheme } from "~/lib/useColorScheme"
+import TanstackProvider from "~/providers/TanStackProvider"
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -53,52 +54,53 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <Tabs
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            const iconProps = { color, size }
+    <TanstackProvider>
+      <ThemeProvider value={DARK_THEME}>
+        <StatusBar style="light" />
+        <Tabs
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              const iconProps = { color, size }
 
-            if (route.name === "index") {
-              return <Home {...iconProps} />
-            } else if (route.name === "products") {
-              return <Box {...iconProps} />
-            } else if (route.name === "settings") {
-              return <Settings {...iconProps} />
-            }
+              if (route.name === "index") {
+                return <Home {...iconProps} />
+              } else if (route.name === "products") {
+                return <Box {...iconProps} />
+              } else if (route.name === "cart") {
+                return <ShoppingCart {...iconProps} />
+              }
 
-            return null
-          },
-          tabBarActiveTintColor: isDarkColorScheme ? "#ffffff" : "#000000",
-          tabBarInactiveTintColor: isDarkColorScheme ? "#a1a1aa" : "#71717a",
-          tabBarStyle: {
-            backgroundColor: isDarkColorScheme ? "#18181b" : "#ffffff",
-          },
-          headerShown: false,
-        })}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: "Accueil",
-          }}
-        />
-        <Tabs.Screen
-          name="products"
-          options={{
-            title: "Products",
-          }}
-        />
-        <Tabs.Screen
-          name="settings"
-          options={{
-            title: "Paramètres",
-          }}
-        />
-      </Tabs>
-      <PortalHost />
-    </ThemeProvider>
+              return null
+            },
+            tabBarActiveTintColor: "#ffffff",
+            tabBarInactiveTintColor: "#a1a1aa",
+            tabBarStyle: {
+              backgroundColor: "#18181b",
+            },
+          })}
+        >
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: "Home",
+            }}
+          />
+          <Tabs.Screen
+            name="products"
+            options={{
+              title: "Products",
+            }}
+          />
+          <Tabs.Screen
+            name="cart"
+            options={{
+              title: "Cart",
+            }}
+          />
+        </Tabs>
+        <PortalHost />
+      </ThemeProvider>
+    </TanstackProvider>
   )
 }
 
