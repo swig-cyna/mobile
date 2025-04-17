@@ -42,7 +42,7 @@ const CardProduct = ({ product }: Props) => {
           <View className="mt-2 w-full">
             <View className="flex-row items-center">
               <Text className="font-semibold flex-1 text-3xl">
-                {product.price} $
+                $ {product.price}
               </Text>
               <Button
                 variant="default"

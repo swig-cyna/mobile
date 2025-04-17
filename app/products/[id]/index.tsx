@@ -5,6 +5,7 @@ import { SafeAreaView, ScrollView } from "react-native"
 import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
 import { Text } from "~/components/ui/text"
+import useCartStore from "~/features/cart/stores/cartStore"
 
 import { useProduct } from "~/features/products/hooks/useProducts"
 
@@ -12,6 +13,17 @@ export default function Screen() {
   const param = useLocalSearchParams()
 
   const { data: product, isLoading } = useProduct(param.id as string)
+  const { addItem } = useCartStore()
+
+  const handleAddToCart = () => {
+    addItem({
+      id: product?.id as string,
+      quantity: 1,
+      name: product?.name as string,
+      price: product?.price as number,
+      images: product?.images as string[],
+    })
+  }
 
   if (isLoading) {
     return (
@@ -49,7 +61,11 @@ export default function Screen() {
         className="rounded-md"
       />
       <Text className="text-3xl font-semibold my-4">{product?.name}</Text>
-      <Button size="lg" className="flex-row items-center gap-2" style={{}}>
+      <Button
+        size="lg"
+        className="flex-row items-center gap-2"
+        onPress={handleAddToCart}
+      >
         <Text className="text-4xl">Add to cart</Text>
         <ShoppingCart size={24} color="#fff" />
       </Button>
