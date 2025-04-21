@@ -103,12 +103,14 @@ export default function Screen() {
           </Text>
           <View className="flex-row items-center gap-2">
             <Button
+              variant="secondary"
               disabled={!products?.pagination.hasPreviousPage}
               onPress={handleChangePage(currentPage - 1)}
             >
               <ChevronLeft color="#fff" />
             </Button>
             <Button
+              variant="secondary"
               disabled={!products?.pagination.hasNextPage}
               onPress={handleChangePage(currentPage + 1)}
             >

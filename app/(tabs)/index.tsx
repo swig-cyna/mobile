@@ -5,20 +5,48 @@ import { SafeAreaView, ScrollView, View } from "react-native"
 import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
 import { Text } from "~/components/ui/text"
+import HomeCarousel from "~/features/carousel/components/HomeCarousel"
+import CategoriesItem from "~/features/categories/components/CategoriesItem"
+import { useCategories } from "~/features/categories/hooks/useCategory"
 import CardProduct from "~/features/products/components/CardProduct"
 import { useProducts } from "~/features/products/hooks/useProducts"
 
 export default function Screen() {
-  const { data: products, isLoading } = useProducts({ page: 1, limit: 3 })
+  const { data: products, isLoading: isLoadingProducts } = useProducts({
+    page: 1,
+    limit: 3,
+  })
+  const { data: categories, isLoading: isCategoriesLoading } = useCategories()
 
   return (
-    <SafeAreaView className="flex-1 px-3">
+    <SafeAreaView className="flex-1">
       <Stack.Screen options={{ headerShown: false }} />
       <ScrollView className="w-full gap-3 flex flex-col">
+        <Text className="text-4xl px-3 py-5 font-semibold">
+          Welcome back 👋
+        </Text>
+        <HomeCarousel />
+        <View className="px-3 flex flex-col gap-3">
+          <Text className="text-3xl font-semibold mt-4 mb-1">Categories</Text>
+
+          <ScrollView horizontal className="w-full overflow-x-auto pb-4">
+            <View className="flex-row min-w-max gap-2">
+              {isCategoriesLoading &&
+                Array.from({ length: 5 }).map((_, index) => (
+                  <Skeleton className="h-[70px] w-[150px]" key={index} />
+                ))}
+
+              {categories &&
+                categories.data.map((category, index) => (
+                  <CategoriesItem key={index} category={category} />
+                ))}
+            </View>
+          </ScrollView>
+        </View>
         <View className="px-3 flex flex-col gap-3">
           <Text className="text-3xl font-semibold my-4">Newest Products</Text>
 
-          {isLoading &&
+          {isLoadingProducts &&
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton key={index} className="h-72 w-full" />
             ))}

@@ -1,4 +1,3 @@
-import { Image } from "expo-image"
 import { Stack, useLocalSearchParams } from "expo-router"
 import { ShoppingCart } from "lucide-react-native"
 import { SafeAreaView, ScrollView, View } from "react-native"
@@ -8,6 +7,7 @@ import { Separator } from "~/components/ui/separator"
 import { Skeleton } from "~/components/ui/skeleton"
 import { Text } from "~/components/ui/text"
 import useCartStore from "~/features/cart/stores/cartStore"
+import ProductCarousel from "~/features/products/components/ProductCarousel"
 
 import { useProduct } from "~/features/products/hooks/useProducts"
 import { MarkDownstyles } from "~/features/products/utils/style"
@@ -31,7 +31,24 @@ export default function Screen() {
   if (isLoading) {
     return (
       <SafeAreaView>
-        <Skeleton className="h-72 w-full" />
+        <Stack.Screen
+          name="products/[id]"
+          options={{
+            title: "Product Details",
+            headerBackButtonDisplayMode: "minimal",
+          }}
+        />
+
+        <View className="flex-col gap-2 px-3 mt-4">
+          <Skeleton className="h-[400] w-full" />
+          <Skeleton className="h-16 w-full" />
+          <Skeleton className="h-16 w-64 ml-auto" />
+          <View className="mt-4 flex-col gap-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <Skeleton key={index} className="h-6 w-96" />
+            ))}
+          </View>
+        </View>
       </SafeAreaView>
     )
   }
@@ -46,7 +63,7 @@ export default function Screen() {
 
   return (
     <SafeAreaView className="flex-1">
-      <ScrollView className="px-3 flex-1 mt-4">
+      <ScrollView className="flex-1 mt-2">
         <Stack.Screen
           name="products/[id]"
           options={{
@@ -54,23 +71,20 @@ export default function Screen() {
             headerBackButtonDisplayMode: "minimal",
           }}
         />
-        {isLoading &&
-          Array.from({ length: 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-72 w-full" />
-          ))}
 
-        <Image
-          source={`${process.env.EXPO_PUBLIC_BUCKET_URL}/products/${product.images[0]}`}
-          style={{ width: "100%", aspectRatio: 1 }}
-          className="rounded-md"
-        />
-        <View className="flex-row items-center justify-between gap-2 mt-4">
-          <Text className="text-3xl font-semibold my-4">{product?.name}</Text>
-          <Text className="text-4xl font-semibold my-4">${product?.price}</Text>
-        </View>
-        <Separator className="mb-4" />
-        <View className="mb-4">
-          <Markdown style={MarkDownstyles}>{product?.description}</Markdown>
+        <ProductCarousel images={product.images} />
+
+        <View className="px-3">
+          <View className="flex-col justify-between gap-2 mb-4 mt-1">
+            <Text className="text-3xl font-semibold">{product?.name}</Text>
+            <Text className="text-4xl font-semibold text-right">
+              ${product?.price}
+            </Text>
+          </View>
+          <Separator className="mb-4" />
+          <View className="mb-4">
+            <Markdown style={MarkDownstyles}>{product?.description}</Markdown>
+          </View>
         </View>
       </ScrollView>
       <View className="px-3">

@@ -85,7 +85,7 @@ export default function ProductFilters() {
             <AccordionContent>
               <View className="space-y-4">
                 <MultiSlider
-                  values={[priceRange[0], priceRange[1]]}
+                  values={[priceRangeValues[0], priceRangeValues[1]]}
                   min={0}
                   max={500}
                   step={10}
