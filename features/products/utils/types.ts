@@ -6,3 +6,8 @@ export type Product = {
   currency: string
   images: string[]
 }
+
+export interface Category {
+  id: number
+  name: string
+}

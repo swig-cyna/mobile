@@ -10,7 +10,6 @@ const TanstackProvider = ({ children }: PropsWithChildren) => {
     new QueryClient({
       defaultOptions: {
         queries: {
-          staleTime: 60_000,
           placeholderData: keepPreviousData,
         },
       },

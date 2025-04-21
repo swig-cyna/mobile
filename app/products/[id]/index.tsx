@@ -73,7 +73,7 @@ export default function Screen() {
           <Markdown style={MarkDownstyles}>{product?.description}</Markdown>
         </View>
       </ScrollView>
-      <View>
+      <View className="px-3">
         <Button
           size="lg"
           className="flex-row items-center gap-2"

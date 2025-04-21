@@ -7,15 +7,19 @@ type UseProductsProps = {
   page?: number
   limit?: number
   search?: string
+  categories?: number[]
+  priceRange?: [number, number]
 }
 
 export const useProducts = ({
   page = 1,
   limit = 10,
   search,
+  categories = [],
+  priceRange = [0, 500],
 }: UseProductsProps) =>
   useQuery({
-    queryKey: ["products", page, limit, search],
+    queryKey: ["products", page, limit, search, categories, priceRange],
     queryFn: () =>
       apiClient
         .get<PaginationResponse<Product>>(`products`, {
@@ -23,6 +27,10 @@ export const useProducts = ({
             page,
             limit,
             ...(search && { search }),
+            ...(categories.length > 0 && { categories: categories.join(",") }),
+            ...((priceRange[0] !== 0 || priceRange[1] !== 500) && {
+              priceRange: priceRange.join(","),
+            }),
           },
         })
         .json(),

@@ -9,6 +9,7 @@ import { Stack } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import * as React from "react"
 import { Platform } from "react-native"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 import "~/global.css"
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar"
 import { NAV_THEME } from "~/lib/constants"
@@ -55,11 +56,13 @@ export default function RootLayout() {
   return (
     <TanstackProvider>
       <ThemeProvider value={DARK_THEME}>
-        <StatusBar style="light" />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-        <PortalHost />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <StatusBar style="light" />
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+          <PortalHost />
+        </GestureHandlerRootView>
       </ThemeProvider>
     </TanstackProvider>
   )
