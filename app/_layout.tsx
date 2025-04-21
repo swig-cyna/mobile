@@ -44,7 +44,7 @@ export default function RootLayout() {
       // Adds the background color to the html element to prevent white background on overscroll.
       document.documentElement.classList.add("bg-background")
     }
-    setAndroidNavigationBar(colorScheme)
+    setAndroidNavigationBar(colorScheme as "light" | "dark")
     setIsColorSchemeLoaded(true)
     hasMounted.current = true
   }, [])
@@ -55,7 +55,7 @@ export default function RootLayout() {
 
   return (
     <TanstackProvider>
-      <ThemeProvider value={DARK_THEME}>
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <StatusBar style="light" />
           <Stack>

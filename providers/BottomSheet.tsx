@@ -10,7 +10,7 @@ const BottomSheetProvider = ({ children }: React.PropsWithChildren) => (
 
 export const BottomSheetStyles = StyleSheet.create({
   backhground: {
-    backgroundColor: "rgb(30, 30, 30)",
+    backgroundColor: "#09090B",
   },
   handle: {
     backgroundColor: "#fff",

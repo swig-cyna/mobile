@@ -1,4 +1,4 @@
-import { Stack } from "expo-router"
+import { Stack, useRouter } from "expo-router"
 import { Package } from "lucide-react-native"
 import * as React from "react"
 import { SafeAreaView, ScrollView, View } from "react-native"
@@ -10,6 +10,7 @@ import CategoriesItem from "~/features/categories/components/CategoriesItem"
 import { useCategories } from "~/features/categories/hooks/useCategory"
 import CardProduct from "~/features/products/components/CardProduct"
 import { useProducts } from "~/features/products/hooks/useProducts"
+import { SafeAreaViewStyle } from "~/lib/utils"
 
 export default function Screen() {
   const { data: products, isLoading: isLoadingProducts } = useProducts({
@@ -17,9 +18,10 @@ export default function Screen() {
     limit: 3,
   })
   const { data: categories, isLoading: isCategoriesLoading } = useCategories()
+  const router = useRouter()
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView style={SafeAreaViewStyle.droidSafeArea}>
       <Stack.Screen options={{ headerShown: false }} />
       <ScrollView className="w-full gap-3 flex flex-col">
         <Text className="text-4xl px-3 py-5 font-semibold">
@@ -29,7 +31,7 @@ export default function Screen() {
         <View className="px-3 flex flex-col gap-3">
           <Text className="text-3xl font-semibold mt-4 mb-1">Categories</Text>
 
-          <ScrollView horizontal className="w-full overflow-x-auto pb-4">
+          <ScrollView horizontal className="w-full pb-4">
             <View className="flex-row min-w-max gap-2">
               {isCategoriesLoading &&
                 Array.from({ length: 5 }).map((_, index) => (
@@ -61,7 +63,7 @@ export default function Screen() {
             <Text className="mb-2 border-dashed text-center text-xl font-bold">
               Discover our services
             </Text>
-            <Button className="mt-2">
+            <Button className="mt-2" onPress={() => router.push("/products")}>
               <Text>Show all services</Text>
             </Button>
           </View>

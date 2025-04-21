@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router"
 import { Box, Home, ShoppingCart } from "lucide-react-native"
 import * as React from "react"
-import { Platform } from "react-native"
 import "~/global.css"
 
 export default function RootLayout() {
@@ -23,9 +22,6 @@ export default function RootLayout() {
         },
         tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "#a1a1aa",
-        tabBarStyle: {
-          backgroundColor: "#18181b",
-        },
       })}
     >
       <Tabs.Screen
@@ -49,8 +45,3 @@ export default function RootLayout() {
     </Tabs>
   )
 }
-
-const useIsomorphicLayoutEffect =
-  Platform.OS === "web" && typeof window === "undefined"
-    ? React.useEffect
-    : React.useLayoutEffect
