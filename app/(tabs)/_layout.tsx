@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router"
-import { Box, Home, ShoppingCart } from "lucide-react-native"
+import { Box, Home, ShoppingCart, User } from "lucide-react-native"
 import * as React from "react"
 import "~/global.css"
 
@@ -16,6 +16,8 @@ export default function RootLayout() {
             return <Box {...iconProps} />
           } else if (route.name === "cart") {
             return <ShoppingCart {...iconProps} />
+          } else if (route.name === "account") {
+            return <User {...iconProps} />
           }
 
           return null
@@ -40,6 +42,12 @@ export default function RootLayout() {
         name="cart"
         options={{
           title: "Cart",
+        }}
+      />
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: "Account",
         }}
       />
     </Tabs>
