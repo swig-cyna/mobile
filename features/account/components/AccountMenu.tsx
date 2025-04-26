@@ -15,13 +15,13 @@ import { View } from "react-native"
 import { Button } from "~/components/ui/button"
 import { Card } from "~/components/ui/card"
 import { Text } from "~/components/ui/text"
-import { authClient, useSession } from "../auth/utils/authClient"
+import { authClient, useSession } from "../../auth/utils/authClient"
 
 const userMenuItems = [
   {
     title: "My Account",
     icon: User2,
-    url: "/user",
+    url: "/user/profile",
   },
   {
     title: "Subscriptions",
@@ -31,7 +31,7 @@ const userMenuItems = [
   {
     title: "Order History",
     icon: Package,
-    url: "#",
+    url: "/user/orders",
   },
   {
     title: "Payment Methods",
